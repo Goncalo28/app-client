@@ -3,6 +3,9 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import AuthService from "./utils/auth";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import Home from './components/Home'
+import Signup from "./components/auth/Signup";
+import Feed from "./components/Feed";
 
 class App extends React.Component {
   state = {
@@ -31,12 +34,18 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-      <ToastContainer />
+        <ToastContainer />
         {/* <Navbar
           loggedInUser={this.state.loggedInUser}
           setCurrentUser={this.setCurrentUser}
         /> */}
         <Switch>
+          <Route exact path="/" render={
+            () => {
+              return <Home loggedInUser={this.state.loggedInUser} setCurrentUser={this.setCurrentUser} />
+            }
+          } />
+          <Route path="/feed" component={Feed} />
         </Switch>
       </div>
     );
