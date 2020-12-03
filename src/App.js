@@ -4,7 +4,6 @@ import AuthService from "./utils/auth";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Home from './components/Home'
-import Signup from "./components/auth/Signup";
 import Feed from "./components/Feed";
 
 class App extends React.Component {
