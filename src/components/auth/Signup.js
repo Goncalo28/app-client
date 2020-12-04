@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AuthService from '../../utils/auth';
 import { Link, withRouter } from 'react-router-dom';
 import { FormControl, Button, TextField, Select, MenuItem } from '@material-ui/core';
-
+import './signup.css'
 
 class Signup extends Component {
     state = {
@@ -42,23 +42,23 @@ class Signup extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleFormSubmit} style={{ marginTop: 100 }}>
-                    <FormControl>
+            <div className='signup-container'>
+                <form onSubmit={this.handleFormSubmit} className='signup-form'>
+                    <FormControl style={{ width: '80%', display: 'flex', justifyContent: 'spaceBetween' }}>
                         <TextField type="text" label="Username" name="username" value={this.state.username} onChange={this.handleChange} />
                         <TextField type="password" label="Password" name="password" value={this.state.password} onChange={this.handleChange} />
                         <TextField type="email" label="Email" name="email" value={this.state.email} onChange={this.handleChange} />
                         <TextField type="text" label="First Name" name="firstName" value={this.state.firstName} onChange={this.handleChange} />
                         <TextField type="text" label="Last Name" name="lastName" value={this.state.lastName} onChange={this.handleChange} />
-                        <Select value={this.state.typeOfUser} onChange={this.handleChange} name="typeOfUser">
+                        <Select value={this.state.typeOfUser} onChange={this.handleChange} name="typeOfUser" style={{ marginTop: 10 }}>
                             <MenuItem value="Investor">Investor</MenuItem>
                             <MenuItem value="Innovator">Innovator</MenuItem>
                         </Select>
-                        <Button type="submit" >Signup</Button>
+                        <Button style={{ marginTop: '10%', marginBottom: '10%', height: 50, fontSize: 18 }} type="submit" variant='contained' color='primary' >Signup</Button>
                     </FormControl>
                 </form>
-                <p>Already have account?
-                    <Link to={"/login"}>Login</Link>
+                <p style={{ fontSize: 20 }}>Already have account?
+                    <Link to={"/login"} style={{ textDecoration: 'none', color: 'blue' }}> Login</Link>
                 </p>
             </div>
         )

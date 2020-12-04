@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Button, FormControl, TextField, Modal, Fade, Backdrop } from '@material-ui/core';
 import Signup from './Signup';
+import './login.css'
 
 class Login extends Component {
     state = {
@@ -22,6 +23,11 @@ class Login extends Component {
         backgroundColor: "lightblue",
         /*         boxShadow: theme.shadows[5],
                 padding: theme.spacing(2, 4, 3), */
+        width: '40vw',
+        height: '60vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 
     handleChange = (e) => {
@@ -59,35 +65,35 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleFormSubmit} style={{ marginTop: 100 }} >
-                    <FormControl>
-                        <TextField color="primary" type="text" name="username" label='Username' value={this.state.username} onChange={this.handleChange} />
+            <div className='login-container'>
+                <form onSubmit={this.handleFormSubmit} className='form-container'>
+                    <FormControl style={{ width: '16vw' }}>
+                        <TextField style={{ marginBottom: 30 }} color="primary" type="text" name="username" label='Username' value={this.state.username} onChange={this.handleChange} />
                         <TextField color="primary" type="password" name="password" label='Password' value={this.state.password} onChange={this.handleChange} />
-                        <Button type="submit">Login</Button>
+                        <Button type="submit" color='primary' variant="contained" style={{ marginTop: 50, height: 45, fontSize: 18 }}>Login</Button>
                     </FormControl>
+                    <p style={{ fontSize: 20, marginTop: -50 }}>Don't have account?
+                        <Link to={"/"} onClick={this.handleOpen} style={{ textDecoration: 'none', color: 'blue' }}> Signup</Link>
+                        <Modal
+                            aria-labelledby="transition-modal-title"
+                            style={this.modal}
+                            aria-describedby="transition-modal-description"
+                            open={this.state.open}
+                            onClose={this.handleClose}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{
+                                timeout: 500,
+                            }}
+                        >
+                            <Fade in={this.state.open}>
+                                <div style={this.paper}>
+                                    <Signup loggedInUser={this.props.loggedInUser} setCurrentUser={this.props.setCurrentUser} handleClose={this.handleClose} />
+                                </div>
+                            </Fade>
+                        </Modal>
+                    </p>
                 </form>
-                <p>Don't have account?
-                    <Link to={"/"} onClick={this.handleOpen}>Signup</Link>
-                    <Modal
-                        aria-labelledby="transition-modal-title"
-                        style={this.modal}
-                        aria-describedby="transition-modal-description"
-                        open={this.state.open}
-                        onClose={this.handleClose}
-                        closeAfterTransition
-                        BackdropComponent={Backdrop}
-                        BackdropProps={{
-                            timeout: 500,
-                        }}
-                    >
-                        <Fade in={this.state.open}>
-                            <div style={this.paper}>
-                                <Signup loggedInUser={this.props.loggedInUser} setCurrentUser={this.props.setCurrentUser} handleClose={this.handleClose} />
-                            </div>
-                        </Fade>
-                    </Modal>
-                </p>
             </div>
         )
     }

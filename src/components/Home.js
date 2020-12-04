@@ -3,7 +3,7 @@ import Login from './auth/Login'
 import "../index.css"
 // import Signup from './auth/Signup'
 import { Grid, Paper, makeStyles } from '@material-ui/core';
-
+import './home.css'
 const Home = (props) => {
 
     const useStyles = makeStyles((theme) => ({
@@ -21,7 +21,7 @@ const Home = (props) => {
     }));
     const classes = useStyles();
     return (
-        <div style={{ backgroundImage: "url('../images/home-background.jpg')", backgroundSize: "cover", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw" }}>
+        <div style={{ backgroundImage: "url('../images/home-background.jpg')", backgroundSize: "cover", backgroundRepeat: "no-repeat" }} className='home-container'>
             <Grid container spacing={0}
                 direction="row"
                 justify="center"
