@@ -10,7 +10,7 @@ class ConnectionService {
     }
 
     createConnection(to) {
-        return this.service.post(`/connections`, to);
+        return this.service.post(`/connections/${to}`);
     }
 
     deleteConnection(id) {

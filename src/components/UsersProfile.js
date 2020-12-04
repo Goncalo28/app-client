@@ -36,6 +36,7 @@ class UsersProfile extends Component {
     }
 
     handleConnection = (id) => {
+        console.log(id)
         let loggedUser = localStorage.getItem("loggedInUser")
         const connectionsService = new ConnectionsService()
         connectionsService.getUserConnections()
