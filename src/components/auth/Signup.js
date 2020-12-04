@@ -28,7 +28,7 @@ class Signup extends Component {
                 //save user id browser local storage
                 localStorage.setItem('loggedInUser', response.data._id);
                 this.props.handleClose();
-                this.props.history.push('/feed');
+                this.props.history.push('/dashboard');
             })
         this.setState({
             username: '',
@@ -57,9 +57,9 @@ class Signup extends Component {
                         <Button style={{ marginTop: '10%', marginBottom: '10%', height: 50, fontSize: 18 }} type="submit" variant='contained' color='primary' >Signup</Button>
                     </FormControl>
                 </form>
-                <p style={{ fontSize: 20 }}>Already have account?
-                    <Link to={"/login"} style={{ textDecoration: 'none', color: 'blue' }}> Login</Link>
-                </p>
+                {/* <p style={{ fontSize: 20 }}>Already have account?
+                    <Link to={"/"} style={{ textDecoration: 'none', color: 'blue' }}> Login</Link>
+                </p> */}
             </div>
         )
     }

@@ -56,7 +56,7 @@ class Login extends Component {
                 this.props.setCurrentUser(user);
                 //save user id browser local storage
                 localStorage.setItem('loggedInUser', user._id);
-                this.props.history.push('/feed');
+                this.props.history.push('/dashboard');
             })
             .catch(() => {
                 toast.error('Invalid Login')

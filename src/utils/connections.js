@@ -4,6 +4,7 @@ class ConnectionService {
     constructor() {
         let service = axios.create({
             baseURL: `${process.env.REACT_APP_SERVER_API}/api`,
+            withCredentials: true
         });
         this.service = service;
     }
