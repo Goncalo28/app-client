@@ -21,8 +21,8 @@ class UserService {
         return this.service.delete(`/users/${id}`)
     }
 
-    editUser(id) {
-        return this.service.put(`/users/${id}`)
+    editUser(id, user) {
+        return this.service.put(`/users/${id}`, user)
     }
 
 }
