@@ -1,0 +1,31 @@
+.profile-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 25vh;
+    width: 40vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: flex-start;
+    height: 20vh;
+    width: 20vw;
+    word-wrap: break-word;
+    overflow-y: scroll;
+}
+
+.avatar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 20px;
+    height: 30vh;
+    width: 17vw; 
+}

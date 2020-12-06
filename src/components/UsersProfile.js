@@ -3,6 +3,15 @@ import UserService from '../utils/user'
 import ConnectionsService from '../utils/connections'
 import { withRouter } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import { Button, Avatar, Typography } from '@material-ui/core';
+import { green } from '@material-ui/core/colors';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import './profile.css'
 
 class UsersProfile extends Component {
     state = {
@@ -45,7 +54,7 @@ class UsersProfile extends Component {
                         } else if (!user.data.connections.includes(localStorage.getItem("loggedInUser")) && connectionStatus !== "pending") {
                             connectionStatus = "notConnected"
                         }
-                        console.log(user)
+                        console.log(connectionStatus)
                         this.setState({
                             username: user.data.username,
                             email: user.data.email,
@@ -69,36 +78,50 @@ class UsersProfile extends Component {
             .then((connections) => {
                 let userConnections = connections.data.filter((connection) => {
                     return ((connection.from === id &&
-                        connection.to === loggedUser._id) ||
+                        connection.to === loggedUser) ||
                         (connection.to === id &&
-                            connection.from === loggedUser._id)
+                            connection.from === loggedUser)
                     )
                 });
                 if (!userConnections.length) {
                     connectionsService.createConnection(id)
                         .then((newConnection) => {
                             toast.success("Connection Requested")
+                            this.setState({
+                                status: 'pending'
+                            })
                             return
                         })
                 }
-
             })
     }
 
     render() {
         return (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                <h2>{this.state.username}</h2>
-                <p>{this.state.firstName}</p>
-                <p>{this.state.lastName}</p>
-                <p>{this.state.email}</p>
-                <p>{this.state.typeOfUser}</p>
-                <p>{this.state.bio}</p>
-                {
-                    this.state.status === 'connected' ? <p>You're already connected</p> :
-                        this.state.status === 'pending' ? <p>Waiting</p> :
-                            <button onClick={() => this.handleConnection(this.state.id)}>Connect</button>
-                }
+            <div className='profile-container'>
+                <Card>
+                    <CardContent className='profile-section'>
+                        <div className='avatar-section'>
+                            <Avatar style={{ height: 100, width: 100 }} />
+                            <Typography variant='h4' color='secondary' style={{ marginTop: '20%' }}>{this.state.username}</Typography>
+                        </div>
+                        <div className='info-section'>
+                            <Typography color='secondary'>Name:</Typography>
+                            <Typography>{this.state.firstName} {this.state.lastName}</Typography>
+                            <Typography color='secondary'>Email:</Typography>
+                            <Typography>{this.state.email}</Typography>
+                            <Typography color='secondary'>I'm an:</Typography>
+                            <Typography>{this.state.typeOfUser}</Typography>
+                            <Typography color='secondary'>Biography:</Typography>
+                            <Typography>{this.state.bio}</Typography>
+                            {
+                                this.state.status === 'connected' ? <Button disabled variant='contained' style={{ backgroundColor: green[500], color: 'white', width: '52%' }}>Connected &#129309;</Button> :
+                                    this.state.status === 'pending' ? <Button disabled variant='contained' style={{ width: '50%', backgroundColor: 'lightgrey', color: 'black' }}>Pending &#8987;</Button> :
+                                        <Button size='small' variant='contained' style={{ backgroundColor: green[500], color: 'white', width: '50%' }} onClick={() => this.handleConnection(this.state.id)}>Connect <CheckCircleIcon /></Button>
+                            }
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
         );
     }

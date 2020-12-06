@@ -2,6 +2,16 @@ import React, { Component } from "react";
 import UserService from "../utils/user";
 import ConnectionsService from "../utils/connections";
 import { toast } from 'react-toastify';
+import { Button, Avatar, Typography } from '@material-ui/core';
+import { green, red } from '@material-ui/core/colors';
+import './profile.css'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ClearIcon from '@material-ui/icons/Clear';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 
 class Profile extends Component {
     state = {
@@ -109,43 +119,58 @@ class Profile extends Component {
 
     render() {
         return (
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "column",
-                }}
-            >
-                <h2>{this.state.username}</h2>
-                <p>{this.state.firstName}</p>
-                <p>{this.state.lastName}</p>
-                <p>{this.state.email}</p>
-                <p>{this.state.typeOfUser}</p>
-                <p>{this.state.bio}</p>
-                <h4>Pending:</h4>
-                { this.state.pendingConnections.map((connection, index) => {
+            <div className='profile-container'>
+                <Card >
+                    <CardContent className='profile-section'>
+                        <div className='avatar-section'>
+                            <Avatar style={{ height: 100, width: 100 }} />
+                            <Typography variant='h4' color='primary' style={{ marginTop: '20%' }}>{this.state.username}</Typography>
+                        </div>
+                        <div className='info-section'>
+                            <Typography color='primary'>Name:</Typography>
+                            <Typography>{this.state.firstName} {this.state.lastName}</Typography>
+                            <Typography color='primary'>Email:</Typography>
+                            <Typography>{this.state.email}</Typography>
+                            <Typography color='primary'>I'm an:</Typography>
+                            <Typography>{this.state.typeOfUser}</Typography>
+                            <Typography color='primary'>Biography:</Typography>
+                            <Typography>{this.state.bio}</Typography>
+                        </div>
+                    </CardContent>
+                    <Card >
+                        <CardContent>
+                            <Typography variant='h6'>Pending requests:</Typography>
+                            {this.state.pendingConnections.map((connection, index) => {
+                                if (connection.from) {
+                                    return (
+                                        <div>
+                                            <Card key={connection.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: '3%', alignItems: 'center', height: 50 }}>
+                                                <Typography variant='body1'>Sent to:</Typography>
+                                                <Typography variant='body1' style={{ fontSize: 15 }}>{connection.user}</Typography>
+                                                <CardMedia><Avatar /></CardMedia>
+                                            </Card>
+                                        </div>
 
-                    if (connection.from) {
-                        return (
-                            <div key={connection.id}>
-                                <p>{connection.user}</p>
+                                    )
+                                } else {
+                                    return (
+                                        <Card key={connection.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', marginTop: '3%', alignItems: 'center', height: 50 }}>
+                                            <Typography variant='body1'>From:</Typography>
+                                            <CardMedia><Avatar /></CardMedia>
+                                            <Typography variant='body1' style={{ fontSize: 15 }}>{connection.user}</Typography>
+                                            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                <Button size='small' variant='contained' style={{ backgroundColor: green[500], color: 'white', marginRight: 20 }} onClick={() => this.handleAccept(connection.id, connection, index)}><CheckCircleIcon /></Button>
+                                                <Button size='small' variant='contained' style={{ backgroundColor: red[500], color: 'white' }} onClick={() => this.handleDecline(connection.id, index)}><ClearIcon /></Button>
+                                            </div>
+                                        </Card>
+                                    )
+                                }
 
-                            </div>
-                        )
-                    } else {
-                        return (
-                            <div key={connection.id}>
-                                <p>{connection.user}</p>
-                                <button onClick={() => this.handleAccept(connection.id, connection, index)}>Accept</button>
-                                <button onClick={() => this.handleDecline(connection.id, index)}>Decline</button>
-                            </div>
-                        )
-                    }
-
-                })
-
-                }
+                            })
+                            }
+                        </CardContent>
+                    </Card>
+                </Card>
             </div>
         );
     }

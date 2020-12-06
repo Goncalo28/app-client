@@ -1,0 +1,38 @@
+.profile-container  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 40vh;
+    width: 40vw;
+    margin-left: auto;
+    margin-right: auto;
+    /* border: 2px solid lightblue; */
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+    /* border: 2px solid lightblue; */
+    align-items: left;
+    justify-content: center;
+    height: 50vh;
+    width: 30vw;
+}
+
+.avatar-section {
+    display: flex;
+    flex-direction: column;
+    /* border: 2px solid lightblue; */
+    padding-right: 20%;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    width: 30vw;
+}

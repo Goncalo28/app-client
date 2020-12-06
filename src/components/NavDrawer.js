@@ -9,6 +9,11 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
+import HomeIcon from '@material-ui/icons/Home';
+import PersonIcon from '@material-ui/icons/Person';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MailIcon from '@material-ui/icons/Mail';
+import Badge from '@material-ui/core/Badge';
 import AuthService from '../utils/auth';
 
 const drawerWidth = 180;
@@ -53,10 +58,10 @@ const NavDrawer = props => {
         return (
             <div className={classes.root}>
                 <CssBaseline />
-                <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: 'red' }}>
+                <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: 'lightblue' }}>
                     <Toolbar>
-                        <Typography variant="h6" noWrap>
-                            Dope
+                        <Typography variant="h6" style={{ color: 'black' }}>
+                            Best App Ever
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -71,21 +76,32 @@ const NavDrawer = props => {
                     <div className={classes.drawerContainer}>
                         <List>
                             <ListItem button>
-                                <NavLink activeStyle={{ color: "red" }}
+                                <NavLink
                                     style={{ height: '100%', width: '100%', textDecoration: 'none', color: 'black', fontSize: 18 }}
-                                    exact to="/dashboard">Home</NavLink>
+                                    exact to="/dashboard">
+                                    Home
+                                </NavLink>
+                                <HomeIcon style={{ marginRight: '7%' }} />
                             </ListItem>
                             <Divider />
                             <ListItem button>
-                                <NavLink activeStyle={{ color: "red" }}
+                                <NavLink
                                     style={{ width: '100%', textDecoration: 'none', color: 'black', fontSize: 18 }}
-                                    exact to="/profile">Profile</NavLink>
+                                    exact to="/profile">
+                                    Profile
+                                </NavLink>
+                                <PersonIcon style={{ marginRight: '7%' }} />
                             </ListItem>
                             <Divider />
                             <ListItem button>
-                                <NavLink activeStyle={{ color: "red" }}
+                                <NavLink
                                     style={{ width: '100%', textDecoration: 'none', color: 'black', fontSize: 18 }}
-                                    exact to="#">Messages</NavLink>
+                                    exact to="#">
+                                    Messages
+                                </NavLink>
+                                <Badge badgeContent={4} color='secondary'>
+                                    <MailIcon />
+                                </Badge>
                             </ListItem>
                             <Divider />
                             {/* <ListItem button>
@@ -95,9 +111,12 @@ const NavDrawer = props => {
                             </ListItem>
                             <Divider /> */}
                             <ListItem button onClick={logoutUser}>
-                                <NavLink activeStyle={{ color: "red" }}
+                                <NavLink
                                     style={{ width: '100%', textDecoration: 'none', color: 'black', fontSize: 18 }}
-                                    to="/">Logout</NavLink>
+                                    to="/">
+                                    Logout
+                                </NavLink>
+                                <ExitToAppIcon style={{ marginRight: '7%' }} />
                             </ListItem>
                             <Divider />
                         </List>
