@@ -15,6 +15,10 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MailIcon from '@material-ui/icons/Mail';
 import Badge from '@material-ui/core/Badge';
 import AuthService from '../utils/auth';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
+import { TextField } from '@material-ui/core';
+
 
 const drawerWidth = 180;
 
@@ -60,9 +64,18 @@ const NavDrawer = props => {
                 <CssBaseline />
                 <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: 'lightblue' }}>
                     <Toolbar>
-                        <Typography variant="h6" style={{ color: 'black' }}>
-                            Best App Ever
-                        </Typography>
+                        <Typography variant="h6" style={{ color: 'black' }}>App</Typography>
+
+
+                        {/* Search Bar */}
+
+                        <div style={{ display: 'flex', backgroundColor: 'rgba(65, 81, 157)', alignItems: 'center', justifyContent: 'center', marginLeft: '45%' }}>
+                            <SearchIcon style={{ width: 30 }} />
+                            <form onSubmit=''>
+                                <TextField style={{ backgroundColor: 'white' }} placeholder="Search…" type="text" value='' name='' onChange='' />
+                            </form>
+                        </div>
+
                     </Toolbar>
                 </AppBar>
                 <Drawer

@@ -64,7 +64,6 @@ class Dashboard extends React.Component {
         if (prevState.content === this.state.content) {
             return;
         } else {
-            console.log(`prevState: ${prevState}`)
             this.getAllPosts();
         }
     }
@@ -106,16 +105,17 @@ class Dashboard extends React.Component {
                 </Card>
                 <hr />
                 <div style={{ width: '40%', marginBottom: 40 }}>
-                    {this.state.posts.map(post => {
+                    {this.state.posts.map((post, index) => {
                         if (this.state.connections.includes(post.user) || post.user === localStorage.getItem("loggedInUser") || !this.state.connections.length) {
                             return (
-                                <Card style={{ marginBottom: 30 }}>
-                                    <CardContent className='profile-section'>
-                                        <div className='avatar-section'>
+                                <Card style={{ marginBottom: 30 }} key={index}>
+                                    <CardContent className='post-section'>
+                                        <div className='post-avatar-section'>
                                             <Avatar style={{ height: 70, width: 70 }} />
-                                            <Typography variant='h5' color='primary' style={{ marginTop: '20%' }}>{post.username}</Typography>
+                                            <Typography variant='h5' color='primary' style={{ marginTop: '10%' }}>{post.username}</Typography>
                                         </div>
-                                        <div className='info-section'>
+                                        <hr style={{ width: 1, height: '100%', backgroundColor: 'lightgrey', border: 'none', marginRight: 15, marginLeft: -25 }} />
+                                        <div className='content-section'>
                                             <Typography style={{ height: 20, margin: 0, padding: 0 }}>{post.content}</Typography>
                                         </div>
                                     </CardContent>

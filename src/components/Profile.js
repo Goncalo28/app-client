@@ -126,6 +126,7 @@ class Profile extends Component {
                             <Avatar style={{ height: 100, width: 100 }} />
                             <Typography variant='h4' color='primary' style={{ marginTop: '20%' }}>{this.state.username}</Typography>
                         </div>
+                        <hr style={{ width: 1, height: '100%', backgroundColor: 'lightgrey', border: 'none', marginRight: 10, marginLeft: -45 }} />
                         <div className='info-section'>
                             <Typography color='primary'>Name:</Typography>
                             <Typography>{this.state.firstName} {this.state.lastName}</Typography>

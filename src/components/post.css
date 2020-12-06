@@ -1,4 +1,4 @@
-.profile-section{
+.post-section{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,7 +9,7 @@
     margin-right: auto;
 }
 
-.info-section {
+.content-section {
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -20,12 +20,12 @@
     overflow-y: scroll;
 }
 
-.avatar-section {
+.post-avatar-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-left: 20px;
+    margin-left: -15%;
     height: 30vh;
     width: 17vw; 
 }
