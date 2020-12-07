@@ -1,16 +1,16 @@
 import React from 'react';
-import { NavLink, Switch, Route } from 'react-router-dom';
-import NavDrawer from './NavDrawer';
-import Profile from "./Profile"
+// import { NavLink, Switch, Route } from 'react-router-dom';
+// import NavDrawer from './NavDrawer';
+// import Profile from "./Profile"
 import PostsService from '../utils/posts'
 import { toast } from 'react-toastify';
 import UserService from '../utils/user';
 import { TextField, Button, Typography, Fab, Avatar } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
+// import CardActionArea from '@material-ui/core/CardActionArea';
+// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 import AddIcon from '@material-ui/icons/Add';
 import './post.css';
 
@@ -23,11 +23,15 @@ class Dashboard extends React.Component {
     }
 
     getAllPosts = () => {
-        const loggedInUserId = localStorage.getItem("loggedInUser")
+        const loggedInUserId = this.props.loggedInUser
         const postsService = new PostsService();
         const postsPromise = postsService.getAllPosts();
+
         const userService = new UserService()
         let userPromise = userService.getUser(loggedInUserId);
+
+        console.log(loggedInUserId)
+
         Promise.all([userPromise, postsPromise]).then((values) => {
             let {
                 username,
@@ -54,7 +58,6 @@ class Dashboard extends React.Component {
             })
         })
     }
-
 
     componentDidMount = () => {
         this.getAllPosts()
@@ -95,6 +98,7 @@ class Dashboard extends React.Component {
                             <TextField label="Post" multiline rows={2} variant='outlined' type="text" name="content" style={{ width: '70%' }}
                                 value={this.state.content}
                                 onChange={this.handleChange}
+                                required
                             />
                             <Button type='submit'><Fab style={{ backgroundColor: 'lightblue' }} aria-label="add">
                                 <AddIcon />
@@ -111,8 +115,8 @@ class Dashboard extends React.Component {
                                 <Card style={{ marginBottom: 30 }} key={index}>
                                     <CardContent className='post-section'>
                                         <div className='post-avatar-section'>
-                                            <Avatar style={{ height: 70, width: 70 }} />
-                                            <Typography variant='h5' color='primary' style={{ marginTop: '10%' }}>{post.username}</Typography>
+                                            <Avatar style={{ backgroundColor: 'rgba(9, 161, 245)', height: 70, width: 70, fontSize: 55 }}>{this.state.username.charAt(0)}</Avatar>
+                                            <Typography variant='h5' style={{ marginTop: '10%', color: 'rgba(9, 161, 245)' }}>{post.username}</Typography>
                                         </div>
                                         <hr style={{ width: 1, height: '100%', backgroundColor: 'lightgrey', border: 'none', marginRight: 15, marginLeft: -25 }} />
                                         <div className='content-section'>

@@ -2,16 +2,19 @@ import React, { Component } from "react";
 import UserService from "../utils/user";
 import ConnectionsService from "../utils/connections";
 import { toast } from 'react-toastify';
-import { Button, Avatar, Typography } from '@material-ui/core';
+import { Button, Avatar, Typography, Fab, Fade, Modal, Backdrop } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
 import './profile.css'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ClearIcon from '@material-ui/icons/Clear';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
+// import CardActionArea from '@material-ui/core/CardActionArea';
+// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import EditIcon from '@material-ui/icons/Edit';
+import EditProfile from "./EditProfile";
+
 
 class Profile extends Component {
     state = {
@@ -23,7 +26,25 @@ class Profile extends Component {
         typeOfUser: "",
         connections: [],
         pendingConnections: [],
+        open: false
     };
+
+    modal = {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+
+    paper = {
+        backgroundColor: "lightblue",
+        /*         boxShadow: theme.shadows[5],
+                padding: theme.spacing(2, 4, 3), */
+        width: '40vw',
+        height: '60vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 
     userService = new UserService();
 
@@ -62,7 +83,6 @@ class Profile extends Component {
                     userConnections[index].userId = user.data._id;
                     userConnections[index].connections = user.data.connections;
                 });
-                console.log(userConnections)
 
                 this.setState({
                     username: username,
@@ -78,23 +98,34 @@ class Profile extends Component {
         });
     }
 
+    updateUser = (user) => {
+        this.userService.editUser(localStorage.getItem("loggedInUser"), user)
+            .then((response) => {
+                let user = response.data
+                this.setState({
+                    username: user.username,
+                    email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    bio: user.bio,
+                    typeOfUser: user.typeOfUser,
+                })
+            })
+    }
+
     handleAccept = (id, connection, index) => {
 
         const loggedInUser = localStorage.getItem("loggedInUser")
         connection.connections.push(loggedInUser)
-        console.log(connection)
         const connectionsService = new ConnectionsService();
         let newPending = [...this.state.pendingConnections];
         newPending.splice(index, 1)
         let newConnections = [...this.state.connections];
         newConnections.push(connection.userId)
-        console.log(`ID of user NOT LOGGED IN: ${connection.userId}`)
-        console.log(`ID of user LOGGED IN: ${loggedInUser}`)
         let userLoggedInPromise = this.userService.editUser(loggedInUser, { $push: { connections: connection.userId } })
         let otherUserPromise = this.userService.editUser(connection.userId, { $push: { connections: loggedInUser } })
         let connectionPromise = connectionsService.deleteConnection(id)
         Promise.all([userLoggedInPromise, otherUserPromise, connectionPromise]).then((values) => {
-            console.log(values)
             this.setState({
                 connections: newConnections,
                 pendingConnections: newPending
@@ -116,6 +147,17 @@ class Profile extends Component {
             })
     }
 
+    handleOpen = () => {
+        this.setState({
+            open: true
+        })
+    };
+
+    handleClose = () => {
+        this.setState({
+            open: false
+        })
+    };
 
     render() {
         return (
@@ -124,7 +166,7 @@ class Profile extends Component {
                     <CardContent className='profile-section'>
                         <div className='avatar-section'>
                             <Avatar style={{ height: 100, width: 100 }} />
-                            <Typography variant='h4' color='primary' style={{ marginTop: '20%' }}>{this.state.username}</Typography>
+                            <Typography variant='h4' style={{ marginTop: '20%', color: 'rgba(9, 161, 245)' }}>{this.state.username}</Typography>
                         </div>
                         <hr style={{ width: 1, height: '100%', backgroundColor: 'lightgrey', border: 'none', marginRight: 10, marginLeft: -45 }} />
                         <div className='info-section'>
@@ -137,6 +179,29 @@ class Profile extends Component {
                             <Typography color='primary'>Biography:</Typography>
                             <Typography>{this.state.bio}</Typography>
                         </div>
+                        <div>
+                            <Modal
+                                aria-labelledby="transition-modal-title"
+                                style={this.modal}
+                                aria-describedby="transition-modal-description"
+                                open={this.state.open}
+                                onClose={this.handleClose}
+                                closeAfterTransition
+                                BackdropComponent={Backdrop}
+                                BackdropProps={{
+                                    timeout: 500,
+                                }}
+                            >
+                                <Fade in={this.state.open}>
+                                    <div style={this.paper}>
+                                        <EditProfile updateUser={this.updateUser} handleClose={this.handleClose} loggedInUser={this.state} />
+                                    </div>
+                                </Fade>
+                            </Modal>
+                            <Fab color='default' aria-label="edit" onClick={this.handleOpen}>
+                                <EditIcon />
+                            </Fab>
+                        </div>
                     </CardContent>
                     <Card >
                         <CardContent>
@@ -148,10 +213,9 @@ class Profile extends Component {
                                             <Card key={connection.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: '3%', alignItems: 'center', height: 50 }}>
                                                 <Typography variant='body1'>Sent to:</Typography>
                                                 <Typography variant='body1' style={{ fontSize: 15 }}>{connection.user}</Typography>
-                                                <CardMedia><Avatar /></CardMedia>
+                                                <CardMedia><Avatar style={{ backgroundColor: 'rgba(9, 161, 245)' }}>{this.state.username.charAt(0)}</Avatar></CardMedia>
                                             </Card>
                                         </div>
-
                                     )
                                 } else {
                                     return (

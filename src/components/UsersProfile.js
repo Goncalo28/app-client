@@ -26,7 +26,7 @@ class UsersProfile extends Component {
         status: ""
     };
 
-    componentDidMount() {
+    getUserDetails() {
         const id = this.props.match.params.id;
         if (id === localStorage.getItem("loggedInUser")) {
             this.props.history.push("/profile")
@@ -70,6 +70,17 @@ class UsersProfile extends Component {
             })
     }
 
+
+    componentDidMount() {
+        this.getUserDetails()
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if (prevProps.match.params.id !== this.props.match.params.id) {
+            this.getUserDetails()
+        }
+    }
+
     handleConnection = (id) => {
         console.log(id)
         let loggedUser = localStorage.getItem("loggedInUser")
@@ -102,17 +113,17 @@ class UsersProfile extends Component {
                 <Card>
                     <CardContent className='profile-section'>
                         <div className='avatar-section'>
-                            <Avatar style={{ height: 100, width: 100 }} />
-                            <Typography variant='h4' color='secondary' style={{ marginTop: '20%' }}>{this.state.username}</Typography>
+                            <Avatar style={{ backgroundColor: 'rgba(9, 161, 245)', height: 100, width: 100, fontSize: 55 }}>{this.state.username.charAt(0)}</Avatar>
+                            <Typography variant='h4' color='secondary' style={{ marginTop: '20%', color: 'rgba(9, 161, 245)' }}>{this.state.username}</Typography>
                         </div>
                         <div className='info-section'>
-                            <Typography color='secondary'>Name:</Typography>
+                            <Typography color='primary'>Name:</Typography>
                             <Typography>{this.state.firstName} {this.state.lastName}</Typography>
-                            <Typography color='secondary'>Email:</Typography>
+                            <Typography color='primary'>Email:</Typography>
                             <Typography>{this.state.email}</Typography>
-                            <Typography color='secondary'>I'm an:</Typography>
+                            <Typography color='primary'>I'm an:</Typography>
                             <Typography>{this.state.typeOfUser}</Typography>
-                            <Typography color='secondary'>Biography:</Typography>
+                            <Typography color='primary'>Biography:</Typography>
                             <Typography>{this.state.bio}</Typography>
                             {
                                 this.state.status === 'connected' ? <Button disabled variant='contained' style={{ backgroundColor: green[500], color: 'white', width: '52%' }}>Connected &#129309;</Button> :

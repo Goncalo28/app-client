@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink, Redirect, withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,12 +13,10 @@ import HomeIcon from '@material-ui/icons/Home';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MailIcon from '@material-ui/icons/Mail';
-import Badge from '@material-ui/core/Badge';
 import AuthService from '../utils/auth';
 import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
 import { TextField } from '@material-ui/core';
-
+import Search from './Search';
 
 const drawerWidth = 180;
 
@@ -47,35 +45,29 @@ const useStyles = makeStyles((theme) => ({
 
 const NavDrawer = props => {
 
-
     const logoutUser = () => {
         const authService = new AuthService();
         authService.logout()
             .then(() => {
                 props.setCurrentUser(null);
                 localStorage.removeItem('loggedInUser');
+
+                // loggedInUser = null;
+                props.history.push('/');
             })
     }
 
     let classes = useStyles();
-    if (props.loggedInUser) {
+
+    if (props.loggedInUser !== null) {
+
         return (
             <div className={classes.root}>
                 <CssBaseline />
                 <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: 'lightblue' }}>
-                    <Toolbar>
+                    <Toolbar style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Typography variant="h6" style={{ color: 'black' }}>App</Typography>
-
-
-                        {/* Search Bar */}
-
-                        <div style={{ display: 'flex', backgroundColor: 'rgba(65, 81, 157)', alignItems: 'center', justifyContent: 'center', marginLeft: '45%' }}>
-                            <SearchIcon style={{ width: 30 }} />
-                            <form onSubmit=''>
-                                <TextField style={{ backgroundColor: 'white' }} placeholder="Search…" type="text" value='' name='' onChange='' />
-                            </form>
-                        </div>
-
+                        <Typography variant='h6' style={{ color: 'black' }}> Hey {props.loggedInUser.username} 👋</Typography>
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -109,24 +101,14 @@ const NavDrawer = props => {
                             <ListItem button>
                                 <NavLink
                                     style={{ width: '100%', textDecoration: 'none', color: 'black', fontSize: 18 }}
-                                    exact to="#">
-                                    Messages
-                                </NavLink>
-                                <Badge badgeContent={4} color='secondary'>
-                                    <MailIcon />
-                                </Badge>
+                                    exact to="/chat">Chat</NavLink>
+                                <MailIcon style={{ marginRight: '7%' }} />
                             </ListItem>
                             <Divider />
-                            {/* <ListItem button>
-                                <NavLink activeStyle={{ color: "red" }}
-                                    style={{ width: '100%', textDecoration: 'none', color: 'black', fontSize: 18 }}
-                                    exact to="#">something here</NavLink>
-                            </ListItem>
-                            <Divider /> */}
                             <ListItem button onClick={logoutUser}>
                                 <NavLink
                                     style={{ width: '100%', textDecoration: 'none', color: 'black', fontSize: 18 }}
-                                    to="/">
+                                    exact to="/">
                                     Logout
                                 </NavLink>
                                 <ExitToAppIcon style={{ marginRight: '7%' }} />
@@ -135,17 +117,27 @@ const NavDrawer = props => {
                         </List>
                     </div>
                 </Drawer>
+                <Drawer
+                    className={classes.drawer}
+                    variant="permanent"
+                    anchor="right"
+                    classes={{
+                        paper: classes.drawerPaper,
+                    }}
+                >
+                    <Toolbar />
+                    <div className={classes.drawerContainer}>
+                        <Search />
+                    </div>
+                </Drawer>
                 <main className={classes.content}>
                     <Toolbar />
                 </main>
             </div>
         );
     } else {
-        return (
-            <div></div>
-            // <Redirect exact to='/' />
-        )
+        return null
     }
 }
 
-export default NavDrawer;
+export default withRouter(NavDrawer);

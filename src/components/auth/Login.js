@@ -72,6 +72,8 @@ class Login extends Component {
                         <TextField color="primary" type="password" name="password" label='Password' value={this.state.password} onChange={this.handleChange} />
                         <Button type="submit" color='primary' variant="contained" style={{ marginTop: 50, height: 45, fontSize: 18 }}>Login</Button>
                     </FormControl>
+                </form>
+                <div>
                     <p style={{ fontSize: 20, marginTop: -50 }}>Don't have account?
                         <Link to={"/"} onClick={this.handleOpen} style={{ textDecoration: 'none', color: 'blue' }}> Signup</Link>
                         <Modal
@@ -93,7 +95,7 @@ class Login extends Component {
                             </Fade>
                         </Modal>
                     </p>
-                </form>
+                </div>
             </div>
         )
     }

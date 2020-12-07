@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AuthService from '../../utils/auth';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { FormControl, Button, TextField, Select, MenuItem } from '@material-ui/core';
 import './signup.css'
 
@@ -19,7 +19,7 @@ class Signup extends Component {
         this.setState({ [name]: value });
     }
 
-    handleFormSubmit = (e) => {
+    handleSubmit = (e) => {
         e.preventDefault();
         const authService = new AuthService();
         authService.signup(this.state)
@@ -43,7 +43,7 @@ class Signup extends Component {
     render() {
         return (
             <div className='signup-container'>
-                <form onSubmit={this.handleFormSubmit} className='signup-form'>
+                <form onSubmit={this.handleSubmit} className='signup-form'>
                     <FormControl style={{ width: '80%', display: 'flex', justifyContent: 'spaceBetween' }}>
                         <TextField type="text" label="Username" name="username" value={this.state.username} onChange={this.handleChange} />
                         <TextField type="password" label="Password" name="password" value={this.state.password} onChange={this.handleChange} />
