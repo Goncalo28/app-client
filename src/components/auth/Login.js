@@ -21,8 +21,6 @@ class Login extends Component {
 
     paper = {
         backgroundColor: "lightblue",
-        /*         boxShadow: theme.shadows[5],
-                padding: theme.spacing(2, 4, 3), */
         width: '40vw',
         height: '60vh',
         display: 'flex',

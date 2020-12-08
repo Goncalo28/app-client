@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Redirect, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,8 +14,6 @@ import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MailIcon from '@material-ui/icons/Mail';
 import AuthService from '../utils/auth';
-import SearchIcon from '@material-ui/icons/Search';
-import { TextField } from '@material-ui/core';
 import Search from './Search';
 
 const drawerWidth = 180;
@@ -32,7 +30,10 @@ const useStyles = makeStyles((theme) => ({
         flexShrink: 0,
     },
     drawerPaper: {
-        width: drawerWidth,
+        width: drawerWidth + 10,
+    },
+    usersDrawerPaper: {
+        width: drawerWidth + 50,
     },
     drawerContainer: {
         overflow: 'auto',
@@ -51,8 +52,6 @@ const NavDrawer = props => {
             .then(() => {
                 props.setCurrentUser(null);
                 localStorage.removeItem('loggedInUser');
-
-                // loggedInUser = null;
                 props.history.push('/');
             })
     }
@@ -64,10 +63,10 @@ const NavDrawer = props => {
         return (
             <div className={classes.root}>
                 <CssBaseline />
-                <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: 'lightblue' }}>
+                <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: '#63BCE5' }}>
                     <Toolbar style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Typography variant="h6" style={{ color: 'black' }}>App</Typography>
-                        <Typography variant='h6' style={{ color: 'black' }}> Hey {props.loggedInUser.username} 👋</Typography>
+                        <Typography variant="h6" >App</Typography>
+                        <Typography variant='h6' > Hey {props.loggedInUser.username} 👋</Typography>
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -122,12 +121,16 @@ const NavDrawer = props => {
                     variant="permanent"
                     anchor="right"
                     classes={{
-                        paper: classes.drawerPaper,
+                        paper: classes.usersDrawerPaper,
                     }}
                 >
                     <Toolbar />
                     <div className={classes.drawerContainer}>
-                        <Search />
+                        <List>
+                            <ListItem>
+                                <Search />
+                            </ListItem>
+                        </List>
                     </div>
                 </Drawer>
                 <main className={classes.content}>

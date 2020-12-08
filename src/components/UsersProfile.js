@@ -7,10 +7,7 @@ import { Button, Avatar, Typography } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import './profile.css'
 
 class UsersProfile extends Component {
@@ -114,16 +111,16 @@ class UsersProfile extends Component {
                     <CardContent className='profile-section'>
                         <div className='avatar-section'>
                             <Avatar style={{ backgroundColor: 'rgba(9, 161, 245)', height: 100, width: 100, fontSize: 55 }}>{this.state.username.charAt(0)}</Avatar>
-                            <Typography variant='h4' color='secondary' style={{ marginTop: '20%', color: 'rgba(9, 161, 245)' }}>{this.state.username}</Typography>
+                            <Typography variant='h4' style={{ marginTop: '20%', color: 'rgba(9, 161, 245)' }}>{this.state.username}</Typography>
                         </div>
                         <div className='info-section'>
-                            <Typography color='primary'>Name:</Typography>
+                            <Typography style={{ color: '#4B9FE1' }}>Name:</Typography>
                             <Typography>{this.state.firstName} {this.state.lastName}</Typography>
-                            <Typography color='primary'>Email:</Typography>
+                            <Typography style={{ color: '#4B9FE1' }}>Email:</Typography>
                             <Typography>{this.state.email}</Typography>
-                            <Typography color='primary'>I'm an:</Typography>
+                            <Typography style={{ color: '#4B9FE1' }}>I'm an:</Typography>
                             <Typography>{this.state.typeOfUser}</Typography>
-                            <Typography color='primary'>Biography:</Typography>
+                            <Typography style={{ color: '#4B9FE1' }}>Biography:</Typography>
                             <Typography>{this.state.bio}</Typography>
                             {
                                 this.state.status === 'connected' ? <Button disabled variant='contained' style={{ backgroundColor: green[500], color: 'white', width: '52%' }}>Connected &#129309;</Button> :

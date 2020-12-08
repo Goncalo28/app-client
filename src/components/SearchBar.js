@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, InputLabel } from '@material-ui/core';
+import { Input, InputLabel, TextField } from '@material-ui/core';
 
 class SearchBar extends Component {
     state = {
@@ -17,8 +17,7 @@ class SearchBar extends Component {
     render() {
         return (
             <form>
-                <InputLabel>Search</InputLabel>
-                <Input type="text" name="name" value={this.search} onChange={this.onChangeHandler} />
+                <TextField label='Search' variant='standard' type="text" name="name" value={this.search} onChange={this.onChangeHandler} />
             </form>
         );
     }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { FormControl, Button, TextField } from '@material-ui/core';
-import UserService from "../utils/user";
 
 class EditProfile extends Component {
     state = {

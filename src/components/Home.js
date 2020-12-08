@@ -1,10 +1,9 @@
-import React from 'react'
-import Login from './auth/Login'
-import "../index.css"
-// import Signup from './auth/Signup'
+import React from 'react';
+import Login from './auth/Login';
+import "../index.css";
 import { Grid, Paper, makeStyles } from '@material-ui/core';
-import './home.css'
-import { withRouter } from 'react-router-dom'
+import './home.css';
+import { withRouter } from 'react-router-dom';
 
 const Home = (props) => {
 
@@ -21,8 +20,9 @@ const Home = (props) => {
             marginTop: theme.spacing(0.5)
         },
     }));
+
     const classes = useStyles();
-    // if (!localStorage.getItem('loggedInUser')) {
+
     return (
         <div style={{ backgroundImage: "url('../images/home-background.jpg')", backgroundSize: "cover", backgroundRepeat: "no-repeat" }} className='home-container'>
             <Grid container spacing={0}
@@ -50,12 +50,6 @@ const Home = (props) => {
             </Grid>
         </div>
     )
-    // }
-    // } else {
-    //     return (
-    //         <Redirect to='/dashboard' />
-    //     )
-    // }
 }
 
 export default withRouter(Home);

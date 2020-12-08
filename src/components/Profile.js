@@ -4,17 +4,14 @@ import ConnectionsService from "../utils/connections";
 import { toast } from 'react-toastify';
 import { Button, Avatar, Typography, Fab, Fade, Modal, Backdrop } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
-import './profile.css'
+import './profile.css';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ClearIcon from '@material-ui/icons/Clear';
 import Card from '@material-ui/core/Card';
-// import CardActionArea from '@material-ui/core/CardActionArea';
-// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import EditIcon from '@material-ui/icons/Edit';
 import EditProfile from "./EditProfile";
-
 
 class Profile extends Component {
     state = {
@@ -37,8 +34,6 @@ class Profile extends Component {
 
     paper = {
         backgroundColor: "lightblue",
-        /*         boxShadow: theme.shadows[5],
-                padding: theme.spacing(2, 4, 3), */
         width: '40vw',
         height: '60vh',
         display: 'flex',
@@ -117,33 +112,41 @@ class Profile extends Component {
 
         const loggedInUser = localStorage.getItem("loggedInUser")
         connection.connections.push(loggedInUser)
+
         const connectionsService = new ConnectionsService();
+
         let newPending = [...this.state.pendingConnections];
         newPending.splice(index, 1)
+
         let newConnections = [...this.state.connections];
         newConnections.push(connection.userId)
+
         let userLoggedInPromise = this.userService.editUser(loggedInUser, { $push: { connections: connection.userId } })
         let otherUserPromise = this.userService.editUser(connection.userId, { $push: { connections: loggedInUser } })
         let connectionPromise = connectionsService.deleteConnection(id)
+
         Promise.all([userLoggedInPromise, otherUserPromise, connectionPromise]).then((values) => {
             this.setState({
                 connections: newConnections,
                 pendingConnections: newPending
             })
-            toast.success("HELL YEAH! I LOVE THAT GUY!")
+            toast.success("Connection accepted!")
         })
     }
 
     handleDecline = (id, index) => {
         const connectionsService = new ConnectionsService();
+
         let newPending = [...this.state.pendingConnections]
         newPending.splice(index, 1)
+
         this.setState({
             pendingConnections: newPending
         })
+
         connectionsService.deleteConnection(id)
             .then(() => {
-                toast.success("HELL YEAH! FUCK THAT GUY")
+                toast.success("Connection rejected!")
             })
     }
 
@@ -170,13 +173,13 @@ class Profile extends Component {
                         </div>
                         <hr style={{ width: 1, height: '100%', backgroundColor: 'lightgrey', border: 'none', marginRight: 10, marginLeft: -45 }} />
                         <div className='info-section'>
-                            <Typography color='primary'>Name:</Typography>
+                            <Typography style={{ color: '#4B9FE1' }}>Name:</Typography>
                             <Typography>{this.state.firstName} {this.state.lastName}</Typography>
-                            <Typography color='primary'>Email:</Typography>
+                            <Typography style={{ color: '#4B9FE1' }}>Email:</Typography>
                             <Typography>{this.state.email}</Typography>
-                            <Typography color='primary'>I'm an:</Typography>
+                            <Typography style={{ color: '#4B9FE1' }}>I'm an:</Typography>
                             <Typography>{this.state.typeOfUser}</Typography>
-                            <Typography color='primary'>Biography:</Typography>
+                            <Typography style={{ color: '#4B9FE1' }}>Biography:</Typography>
                             <Typography>{this.state.bio}</Typography>
                         </div>
                         <div>
@@ -209,7 +212,7 @@ class Profile extends Component {
                             {this.state.pendingConnections.map((connection, index) => {
                                 if (connection.from) {
                                     return (
-                                        <div>
+                                        <div key={{ index }}>
                                             <Card key={connection.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: '3%', alignItems: 'center', height: 50 }}>
                                                 <Typography variant='body1'>Sent to:</Typography>
                                                 <Typography variant='body1' style={{ fontSize: 15 }}>{connection.user}</Typography>

@@ -2,7 +2,9 @@ import React from "react"
 import UserService from '../utils/user';
 import SearchBar from "./SearchBar"
 import { NavLink } from "react-router-dom"
-
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
+import { List, ListItem } from "@material-ui/core";
 
 class Search extends React.Component {
 
@@ -10,7 +12,6 @@ class Search extends React.Component {
         users: [],
         usersCopy: [],
     }
-
 
     componentDidMount = () => {
         const userService = new UserService()
@@ -34,28 +35,30 @@ class Search extends React.Component {
     }
 
     render() {
-        // if (this.props.loggedInUser !== null) {
         return (
-            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: 5, width: '100%' }}>
                 <SearchBar onFilter={this.handleSearch} />
-                <ul>
-                    {this.state.usersCopy.map(user => {
+                <List style={{ display: 'flex', alignItems: 'left', justifyContent: 'left', flexDirection: 'column', width: '100%' }}>
+                    {this.state.usersCopy.map((user, index) => {
                         if (user._id !== localStorage.getItem("loggedInUser")) {
-                            return <li><NavLink exact to={`/profile/${user._id}`}>
-                                {user.username}
-                            </NavLink>
-                            </li>
+                            return (
+                                <ListItem key={index} >
+                                    <NavLink exact to={`/profile/${user._id}`} style={{ width: '100%', textDecoration: 'none', height: 35 }}>
+                                        <Chip avatar={<Avatar style={{ height: 25, width: 25, backgroundColor: '#7ED5EA', fontSize: 17, color: 'white' }}>{user.username.charAt(0)}</Avatar>}
+                                            label={user.username}
+                                            style={{ width: '100%', display: 'flex', alignItems: 'left', justifyContent: 'left', height: 35 }}  //</NavLink>'#ABE5E8'
+                                        ></Chip>
+                                    </NavLink>
+                                </ListItem>
+                            )
                         } else {
                             return null
                         }
                     })}
-                </ul>
+                </List>
             </div>
         )
-        // } else {
-        // }
     }
 }
-
 
 export default Search

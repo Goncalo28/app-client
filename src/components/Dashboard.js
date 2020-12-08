@@ -1,18 +1,13 @@
 import React from 'react';
-// import { NavLink, Switch, Route } from 'react-router-dom';
-// import NavDrawer from './NavDrawer';
-// import Profile from "./Profile"
 import PostsService from '../utils/posts'
 import { toast } from 'react-toastify';
 import UserService from '../utils/user';
-import { TextField, Button, Typography, Fab, Avatar } from '@material-ui/core';
+import { TextField, Typography, Fab, Avatar } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
-// import CardActionArea from '@material-ui/core/CardActionArea';
-// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
 import AddIcon from '@material-ui/icons/Add';
 import './post.css';
+
 
 class Dashboard extends React.Component {
     state = {
@@ -22,6 +17,7 @@ class Dashboard extends React.Component {
         connections: []
     }
 
+
     getAllPosts = () => {
         const loggedInUserId = this.props.loggedInUser
         const postsService = new PostsService();
@@ -29,8 +25,6 @@ class Dashboard extends React.Component {
 
         const userService = new UserService()
         let userPromise = userService.getUser(loggedInUserId);
-
-        console.log(loggedInUserId)
 
         Promise.all([userPromise, postsPromise]).then((values) => {
             let {
@@ -85,7 +79,7 @@ class Dashboard extends React.Component {
             this.setState({
                 content: ''
             })
-            toast.success('Post created!!')
+            toast.success('Post created!')
         });
     }
 
@@ -94,15 +88,15 @@ class Dashboard extends React.Component {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                 <Card style={{ width: '40%', marginBottom: 40 }}>
                     <CardContent >
-                        <form onSubmit={this.handleFormSubmit} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+                        <form style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
                             <TextField label="Post" multiline rows={2} variant='outlined' type="text" name="content" style={{ width: '70%' }}
                                 value={this.state.content}
                                 onChange={this.handleChange}
                                 required
                             />
-                            <Button type='submit'><Fab style={{ backgroundColor: 'lightblue' }} aria-label="add">
-                                <AddIcon />
-                            </Fab></Button>
+                            <Fab onClick={this.handleFormSubmit} style={{ backgroundColor: '#4B9FE1' }} aria-label="add">
+                                <AddIcon style={{ color: 'white' }} />
+                            </Fab>
 
                         </form>
                     </CardContent>
@@ -115,8 +109,8 @@ class Dashboard extends React.Component {
                                 <Card style={{ marginBottom: 30 }} key={index}>
                                     <CardContent className='post-section'>
                                         <div className='post-avatar-section'>
-                                            <Avatar style={{ backgroundColor: 'rgba(9, 161, 245)', height: 70, width: 70, fontSize: 55 }}>{this.state.username.charAt(0)}</Avatar>
-                                            <Typography variant='h5' style={{ marginTop: '10%', color: 'rgba(9, 161, 245)' }}>{post.username}</Typography>
+                                            <Avatar style={{ backgroundColor: '#63BCE5', height: 70, width: 70, fontSize: 55 }}>{post.username.charAt(0)}</Avatar>
+                                            <Typography variant='h5' style={{ marginTop: '10%' }}>{post.username}</Typography>
                                         </div>
                                         <hr style={{ width: 1, height: '100%', backgroundColor: 'lightgrey', border: 'none', marginRight: 15, marginLeft: -25 }} />
                                         <div className='content-section'>
