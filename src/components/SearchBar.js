@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, InputLabel, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
 class SearchBar extends Component {
     state = {

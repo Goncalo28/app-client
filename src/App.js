@@ -19,7 +19,7 @@ class App extends React.Component {
 
   theme = createMuiTheme({
     palette: {
-      type: 'dark',
+      type: 'light',
     }
   })
 

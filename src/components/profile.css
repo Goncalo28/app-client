@@ -13,13 +13,11 @@
     width: 40vw;
     margin-left: auto;
     margin-right: auto;
-    /* border: 2px solid lightblue; */
 }
 
 .info-section {
     display: flex;
     flex-direction: column;
-    /* border: 2px solid lightblue; */
     align-items: left;
     justify-content: center;
     height: 45vh;
@@ -29,7 +27,6 @@
 .avatar-section {
     display: flex;
     flex-direction: column;
-    /* border: 2px solid lightblue; */
     padding-right: 10%;
     align-items: center;
     justify-content: center;

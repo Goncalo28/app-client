@@ -3,7 +3,7 @@ import io from 'socket.io-client'
 import TextField from '@material-ui/core/TextField'
 import { Button, Card } from '@material-ui/core'
 
-const socket = io.connect('http://localhost:5000', {
+const socket = io.connect(process.env.REACT_APP_SERVER_API, {
     withCredentials: true,
 })
 

@@ -3,7 +3,7 @@ import axios from "axios";
 class PostsService {
     constructor() {
         let service = axios.create({
-            baseURL: `${process.env.REACT_APP_SERVER_API}/api`,
+            baseURL: process.env.REACT_APP_SERVER_API,
             withCredentials: true
 
         });
