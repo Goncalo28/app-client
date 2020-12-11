@@ -216,7 +216,7 @@ class Profile extends Component {
                                             <Card key={connection.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', marginTop: '3%', alignItems: 'center', height: 50 }}>
                                                 <Typography variant='body1'>Sent to:</Typography>
                                                 <Typography variant='body1' style={{ fontSize: 15 }}>{connection.user}</Typography>
-                                                <CardMedia><Avatar style={{ backgroundColor: 'rgba(9, 161, 245)' }}>{this.state.username.charAt(0)}</Avatar></CardMedia>
+                                                <CardMedia><Avatar style={{ backgroundColor: 'rgba(9, 161, 245)' }}>{connection.user.charAt(0)}</Avatar></CardMedia>
                                             </Card>
                                         </div>
                                     )

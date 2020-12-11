@@ -17,11 +17,11 @@ class App extends React.Component {
     loggedInUser: null,
   };
 
-  theme = createMuiTheme({
-    palette: {
-      type: 'light',
-    }
-  })
+  // theme = createMuiTheme({
+  //   palette: {
+  //     type: 'light',
+  //   }
+  // })
 
   setCurrentUser = (user) => {
     this.setState({
@@ -45,59 +45,59 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <ThemeProvider theme={this.theme}>
-          <ToastContainer />
-          <NavDrawer loggedInUser={this.state.loggedInUser} setCurrentUser={this.setCurrentUser} />
-          <Switch>
-            <Route exact path="/dashboard" render={
-              () => {
-                if (localStorage.getItem('loggedInUser')) {
-                  return <Dashboard loggedInUser={localStorage.getItem('loggedInUser')} setCurrentUser={this.setCurrentUser} />
-                } else {
-                  return <Redirect to='/' />
-                }
+        {/* <ThemeProvider theme={this.theme}> */}
+        <ToastContainer />
+        <NavDrawer loggedInUser={this.state.loggedInUser} setCurrentUser={this.setCurrentUser} />
+        <Switch>
+          <Route exact path="/dashboard" render={
+            () => {
+              if (localStorage.getItem('loggedInUser')) {
+                return <Dashboard loggedInUser={localStorage.getItem('loggedInUser')} setCurrentUser={this.setCurrentUser} />
+              } else {
+                return <Redirect to='/' />
               }
             }
-            />
-            <Route path='/chat' render={
-              () => {
-                if (localStorage.getItem('loggedInUser')) {
-                  return <Chat />
-                } else {
-                  return <Redirect to='/' />
-                }
+          }
+          />
+          <Route path='/chat' render={
+            () => {
+              if (localStorage.getItem('loggedInUser')) {
+                return <Chat />
+              } else {
+                return <Redirect to='/' />
               }
-            } />
-            <Route exact path="/profile" render={
-              () => {
-                if (localStorage.getItem('loggedInUser')) {
-                  return <Profile />
-                } else {
-                  return <Redirect to='/' />
-                }
+            }
+          } />
+          <Route exact path="/profile" render={
+            () => {
+              if (localStorage.getItem('loggedInUser')) {
+                return <Profile />
+              } else {
+                return <Redirect to='/' />
               }
-            } />
+            }
+          } />
 
-            <Route exact path="/profile/:id" render={
-              () => {
-                if (localStorage.getItem('loggedInUser')) {
-                  return <UsersProfile />
-                } else {
-                  return <Redirect to='/' />
-                }
+          <Route exact path="/profile/:id" render={
+            () => {
+              if (localStorage.getItem('loggedInUser')) {
+                return <UsersProfile />
+              } else {
+                return <Redirect to='/' />
               }
-            } />
-            <Route exact path="/" render={
-              () => {
-                if (!localStorage.getItem('loggedInUser')) {
-                  return <Home loggedInUser={localStorage.getItem('loggedInUser')} setCurrentUser={this.setCurrentUser} />
-                } else {
-                  return <Redirect to="/dashboard" />
-                }
-              }}
-            />
-          </Switch>
-        </ThemeProvider>
+            }
+          } />
+          <Route exact path="/" render={
+            () => {
+              if (!localStorage.getItem('loggedInUser')) {
+                return <Home loggedInUser={localStorage.getItem('loggedInUser')} setCurrentUser={this.setCurrentUser} />
+              } else {
+                return <Redirect to="/dashboard" />
+              }
+            }}
+          />
+        </Switch>
+        {/* </ThemeProvider> */}
       </div>
     );
   }

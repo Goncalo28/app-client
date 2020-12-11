@@ -14,6 +14,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MailIcon from '@material-ui/icons/Mail';
 import AuthService from '../utils/auth';
+import Switch from '@material-ui/core/Switch';
 import Search from './Search';
 
 const drawerWidth = 180;
